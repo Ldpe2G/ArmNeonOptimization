@@ -1,6 +1,7 @@
 # Arm Neon Optimization Of Box Filter
 
-Showing how to optimize the box filter operation on arm divices step by step.
+Showing how to optimize the box filter operation on arm divices step by step. 
+Tested on Huawei Honor 4C (CHM-TL00).
 
 ## Build && Run
 0. Install `adb` tool with following command
