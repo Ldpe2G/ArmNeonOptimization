@@ -23,7 +23,7 @@ DEPLOY_DIR=/data/local/tmp/ldp
 CMAKE=/home/ldpe2g/Android/cmake-3.11.0-Linux-x86_64/bin/cmake
 ```
 
-4. After successfully building the project, the executable `runUnitTests` will be pushed to your android mobile and run. If every thing goes right, you should see the following outputs on your terminal.
+4. After successfully building the project, the executable `runUnitTests` will be pushed to the folder `${DEPLOY_DIR}` on your android mobile and run. If every thing goes right, you should see the following outputs on your terminal.
 
 
 ```
