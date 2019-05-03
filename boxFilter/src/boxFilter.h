@@ -25,9 +25,6 @@ public:
 
   void fastFilterV2NeonAsmV2(float *input, int radius, int height, int width, float *output);
 
-  void fastFilterV2NeonAsmV3(float *input, int radius, int height, int width, float *output);
-
-
 private:
   void free() {
     std::vector<float>().swap(cache);
