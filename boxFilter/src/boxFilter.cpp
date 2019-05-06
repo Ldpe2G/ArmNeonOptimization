@@ -664,7 +664,7 @@ void BoxFilter::fastFilterV2NeonAsmV2(float *input, int radius, int height, int 
       
       "vst1.s32 {d12-d15}, [%3]!  \n"
       
-      "vst1.s32 {d16-d19}, [%2]!  \n"
+      "vst1.s32 {d12-d15}, [%2]!  \n"
 
       "subs %4, #1              \n"
       "bne  0b                  \n"
