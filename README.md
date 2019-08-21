@@ -6,3 +6,4 @@ Arm neon optimization practice.
 
 ## List of practices
 * [box filter arm neon opmization](https://github.com/Ldpe2G/ArmNeonOptimization/tree/master/boxFilter)
+* [side-window box filter](https://github.com/Ldpe2G/ArmNeonOptimization/tree/master/sideWindowBoxFilter)
