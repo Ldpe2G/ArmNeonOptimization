@@ -1,6 +1,6 @@
 # Side-window Box Filter
 
-C++ implementation of the [Side Window Filtering(CVPR 2019)](https://github.com/YuanhaoGong/SideWindowFilter). Successfully build on linux and android.
+C++ implementation of the [Side Window Filtering(CVPR 2019)](https://github.com/YuanhaoGong/SideWindowFilter). Successfully build on linux and android. No need to install `opencv`, we use the [stb lib](https://github.com/nothings/stb) to read and save images, and the side window box filter algorithm is optimized by the [fast box filter technique](https://github.com/Ldpe2G/ArmNeonOptimization/tree/master/boxFilter).
 
 ## Some results
 The original box filter does not preserve edges. But side window box filter can preserve edges and corners, as shown in following figure. 
