@@ -92,3 +92,12 @@ CMAKE_PATH=/mnt/d/downloads/cmake-3.11.4/bin/cmake
 
 ## Run
 
+After successfully building the project on linux, you can then use the `scripts/run_compare.sh` to run the comparation with you own images. And remember to modify the following one or more parameters, then have fun :)!
+
+```
+INPUT_PATH=${basepath}/images/dragonball_small.jpg
+FILTER_RADIUS=3
+ITERATION_NUM=30
+BOX_FILTER_OUT_PATH=${basepath}/results/box_filter_radius${FILTER_RADIUS}_iter${ITERATION_NUM}.jpg
+SIDE_WINDOW_BOX_FILTER_OUT_PATH=${basepath}/results/side_window_box_filter_radius${FILTER_RADIUS}_iter${ITERATION_NUM}.jpg
+```
