@@ -5,3 +5,7 @@
 [submodule "sideWindowBoxFilter/third_party/googletest"]
 	path = sideWindowBoxFilter/third_party/googletest
 	url = https://github.com/google/googletest.git
+
+[submodule "sideWindowMedianFilter/third_party/googletest"]
+	path = sideWindowMedianFilter/third_party/googletest
+	url = https://github.com/google/googletest.git
