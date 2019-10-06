@@ -3,7 +3,7 @@
 C++ implementation of the paper [Side Window Filtering(CVPR 2019)](https://github.com/YuanhaoGong/SideWindowFilter) of the median filter. Successfully build on linux and android. No need to install `opencv`, we use the [stb lib](https://github.com/nothings/stb) to read and save images.
 
 ## Some results
-Side window median filter can preserve edges and corners much better than the original median filter, as shown in the following figures. 
+Side window median filter can preserve edges and corners better than the original median filter, as shown in the following figures. 
 
 ### filter normal image
 <div align='center'>
