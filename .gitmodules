@@ -9,3 +9,7 @@
 [submodule "sideWindowMedianFilter/third_party/googletest"]
 	path = sideWindowMedianFilter/third_party/googletest
 	url = https://github.com/google/googletest.git
+
+[submodule "ConstantTimeMedianFilter/third_party/googletest"]
+	path = ConstantTimeMedianFilter/third_party/googletest
+	url = https://github.com/google/googletest.git
