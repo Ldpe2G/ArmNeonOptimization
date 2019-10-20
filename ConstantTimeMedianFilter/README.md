@@ -102,6 +102,8 @@ CMAKE_PATH=cmake
 
 ```
 
+You should see from the above unit tests results that the average cost time of the constant time median filter change little when the filer radius increate from 1 to 5.
+
 ### Build on android
 
 0. Install `adb` tool with following command
