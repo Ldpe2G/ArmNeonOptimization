@@ -16,7 +16,7 @@ if [[ ! -d ${BUILD_DIR} ]]; then
     mkdir -p ${BUILD_DIR}
 fi
 
-USE_NEON=OFF
+USE_NEON=ON
 
 cd ${BUILD_DIR}
 ${CMAKE_PATH} \
