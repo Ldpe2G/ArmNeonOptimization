@@ -1,6 +1,6 @@
 # Median Filter In Constant Time
 
-C++ implementation of the paper [Median Filter In Constant Time](https://nomis80.org/ctmf.pdf) of the median filter. Successfully build on linux and android(tested on HUAWEI P30, HiSilicon KIRIN 980). 
+C++ implementation of the paper [Median Filter In Constant Time](https://nomis80.org/ctmf.pdf). Successfully build on linux and android(tested on HUAWEI P30, HiSilicon KIRIN 980). 
 
 ## Build
 
