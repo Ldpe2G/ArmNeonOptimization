@@ -168,7 +168,14 @@ void threadFun() {
     printf("thread %s, running on cpu: %d\n", ss.str().c_str(), cpu);
     g_display_mutex.unlock();
 
+    // std::this_thread::sleep_for (std::chrono::microseconds(100));
+
     Boxfilter(7, 500, 500);
+
+    // syscallret = syscall(__NR_getcpu, &cpu, NULL, NULL);
+    // g_display_mutex.lock();
+    // printf("thread %s, running on cpu: %d\n", ss.str().c_str(), cpu);
+    // g_display_mutex.unlock();
 }
 
 static void swapSort(std::vector<int> &arr, std::vector<int> &idx, bool reverse = true) {
