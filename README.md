@@ -9,3 +9,4 @@ Arm neon optimization practice.
 * [side-window box filter](https://github.com/Ldpe2G/ArmNeonOptimization/tree/master/sideWindowBoxFilter)
 * [side-window median filter](https://github.com/Ldpe2G/ArmNeonOptimization/tree/master/sideWindowMedianFilter)
 * [constant time median filter](https://github.com/Ldpe2G/ArmNeonOptimization/tree/master/ConstantTimeMedianFilter)
+* [cpu affinity experiments](https://github.com/Ldpe2G/ArmNeonOptimization/tree/master/cpuAffinityExperiments)
