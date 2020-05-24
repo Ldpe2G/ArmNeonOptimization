@@ -4,6 +4,12 @@
 #include <algorithm>
 #include <chrono>
 
+#ifdef __ANDROID__
+#include <sys/syscall.h>
+#include <unistd.h>
+#include <stdint.h>
+#endif
+
 #if defined(__ARM_NEON)
 #include <arm_neon.h>
 #endif // __ARM_NEON
@@ -12,6 +18,26 @@
 #include "stb_image.h"
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
+
+static int set_sched_affinity(size_t thread_affinity_mask)
+{
+#ifdef __GLIBC__
+    pid_t pid = syscall(SYS_gettid);
+#else
+#ifdef PI3
+    pid_t pid = getpid();
+#else
+    pid_t pid = gettid();
+#endif
+#endif
+    int syscallret = syscall(__NR_sched_setaffinity, pid, sizeof(thread_affinity_mask), &thread_affinity_mask);
+    if (syscallret)
+    {
+        fprintf(stderr, "syscall error %d\n", syscallret);
+        return -1;
+    }
+    return 0;
+}
 
 void rgb2grayFloat(const unsigned char *rgbImage,
                    const int            height,
@@ -211,6 +237,14 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
+    size_t mask = 0;
+    for (int i = 0; i < 8; ++i) {
+      if (i >= 7) {
+        mask |= (1 << i);
+      }
+    }
+    int ret = set_sched_affinity(mask);
+
     std::string input_path  = std::string(argv[1]);
     std::string output_name = std::string(argv[2]);
 
@@ -227,8 +261,8 @@ int main(int argc, char *argv[]) {
     int loop = 1000;
     for (int i = 0; i < loop; ++i) {
         auto start = std::chrono::high_resolution_clock::now();
-        // rgb2grayFloat(inputImage, height, width, outGray);
-        rgb2gray(inputImage, height, width, outGray);
+        rgb2grayFloat(inputImage, height, width, outGray);
+        // rgb2gray(inputImage, height, width, outGray);
         // rgb2grayAssembly(inputImage, height, width, outGray);
         auto stop = std::chrono::high_resolution_clock::now();
         duration += std::chrono::duration<double, std::milli>(stop - start).count();

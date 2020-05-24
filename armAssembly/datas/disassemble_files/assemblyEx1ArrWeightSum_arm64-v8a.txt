@@ -292,133 +292,153 @@ Disassembly of section .text._Z22arrWeightedAvgAssemblyPKffS0_fiPf:
 Disassembly of section .text.main:
 
 0000000000000000 <main>:
-   0:	6db92beb 	stp	d11, d10, [sp,#-112]!
-   4:	6d0123e9 	stp	d9, d8, [sp,#16]
-   8:	f90013f9 	str	x25, [sp,#32]
-   c:	a9035ff8 	stp	x24, x23, [sp,#48]
-  10:	a90457f6 	stp	x22, x21, [sp,#64]
-  14:	a9054ff4 	stp	x20, x19, [sp,#80]
-  18:	a9067bfd 	stp	x29, x30, [sp,#96]
-  1c:	910183fd 	add	x29, sp, #0x60
-  20:	528b4000 	mov	w0, #0x5a00                	// #23040
-  24:	528b4017 	mov	w23, #0x5a00                	// #23040
-  28:	72a04c40 	movk	w0, #0x262, lsl #16
-  2c:	72a04c57 	movk	w23, #0x262, lsl #16
-  30:	94000000 	bl	0 <_Znam>
-  34:	aa0003f3 	mov	x19, x0
-  38:	528b4000 	mov	w0, #0x5a00                	// #23040
-  3c:	72a04c40 	movk	w0, #0x262, lsl #16
-  40:	94000000 	bl	0 <_Znam>
-  44:	aa0003f4 	mov	x20, x0
-  48:	528b4000 	mov	w0, #0x5a00                	// #23040
-  4c:	72a04c40 	movk	w0, #0x262, lsl #16
-  50:	94000000 	bl	0 <_Znam>
-  54:	aa0003f5 	mov	x21, x0
-  58:	94000000 	bl	0 <rand>
-  5c:	1103fc08 	add	w8, w0, #0xff
-  60:	7100001f 	cmp	w0, #0x0
-  64:	1a80b108 	csel	w8, w8, w0, lt
-  68:	12185d08 	and	w8, w8, #0xffffff00
-  6c:	4b080016 	sub	w22, w0, w8
-  70:	94000000 	bl	0 <rand>
-  74:	1103fc08 	add	w8, w0, #0xff
-  78:	7100001f 	cmp	w0, #0x0
-  7c:	1a80b108 	csel	w8, w8, w0, lt
-  80:	12185d08 	and	w8, w8, #0xffffff00
-  84:	aa1f03f8 	mov	x24, xzr
-  88:	4b080019 	sub	w25, w0, w8
-  8c:	94000000 	bl	0 <rand>
-  90:	1103fc08 	add	w8, w0, #0xff
-  94:	7100001f 	cmp	w0, #0x0
-  98:	1a80b108 	csel	w8, w8, w0, lt
-  9c:	12185d08 	and	w8, w8, #0xffffff00
-  a0:	4b080008 	sub	w8, w0, w8
-  a4:	1e220100 	scvtf	s0, w8
-  a8:	bc386a60 	str	s0, [x19,x24]
-  ac:	94000000 	bl	0 <rand>
-  b0:	1103fc08 	add	w8, w0, #0xff
-  b4:	7100001f 	cmp	w0, #0x0
-  b8:	1a80b108 	csel	w8, w8, w0, lt
-  bc:	12185d08 	and	w8, w8, #0xffffff00
-  c0:	4b080008 	sub	w8, w0, w8
-  c4:	1e220100 	scvtf	s0, w8
-  c8:	bc386a80 	str	s0, [x20,x24]
-  cc:	91001318 	add	x24, x24, #0x4
-  d0:	eb1802ff 	cmp	x23, x24
-  d4:	54fffdc1 	b.ne	8c <main+0x8c>
-  d8:	90000008 	adrp	x8, 0 <main>
-  dc:	fd40010a 	ldr	d10, [x8]
-  e0:	1e220329 	scvtf	s9, w25
-  e4:	5284b419 	mov	w25, #0x25a0                	// #9632
-  e8:	1e2202c8 	scvtf	s8, w22
-  ec:	1e2703eb 	fmov	s11, wzr
-  f0:	52807d18 	mov	w24, #0x3e8                 	// #1000
-  f4:	72a004d9 	movk	w25, #0x26, lsl #16
-  f8:	94000000 	bl	0 <_ZNSt6chrono3_V212system_clock3nowEv>
-  fc:	5284b40c 	mov	w12, #0x25a0                	// #9632
- 100:	1e260108 	fmov	w8, s8
- 104:	1e260129 	fmov	w9, s9
- 108:	aa1503ea 	mov	x10, x21
- 10c:	aa1403eb 	mov	x11, x20
- 110:	72a004cc 	movk	w12, #0x26, lsl #16
- 114:	aa1303ed 	mov	x13, x19
- 118:	aa0003f6 	mov	x22, x0
- 11c:	aa0803e0 	mov	x0, x8
- 120:	4e040c00 	dup	v0.4s, w0
- 124:	aa0903e1 	mov	x1, x9
- 128:	4e040c21 	dup	v1.4s, w1
- 12c:	f98041a0 	prfm	pldl1keep, [x13,#128]
- 130:	4cdf79a2 	ld1	{v2.4s}, [x13], #16
- 134:	f9804160 	prfm	pldl1keep, [x11,#128]
- 138:	4cdf7963 	ld1	{v3.4s}, [x11], #16
- 13c:	6e20dc44 	fmul	v4.4s, v2.4s, v0.4s
- 140:	6e21dc65 	fmul	v5.4s, v3.4s, v1.4s
- 144:	4e25d486 	fadd	v6.4s, v4.4s, v5.4s
- 148:	f100058c 	subs	x12, x12, #0x1
- 14c:	4c9f7946 	st1	{v6.4s}, [x10], #16
- 150:	54fffeec 	b.gt	12c <main+0x12c>
- 154:	94000000 	bl	0 <_ZNSt6chrono3_V212system_clock3nowEv>
- 158:	cb160008 	sub	x8, x0, x22
- 15c:	1e22c160 	fcvt	d0, s11
- 160:	9e620101 	scvtf	d1, x8
- 164:	1f4a0020 	fmadd	d0, d1, d10, d0
- 168:	51000718 	sub	w24, w24, #0x1
- 16c:	1e62400b 	fcvt	s11, d0
- 170:	35fffc58 	cbnz	w24, f8 <main+0xf8>
- 174:	90000008 	adrp	x8, 0 <main>
- 178:	bd400100 	ldr	s0, [x8]
- 17c:	90000000 	adrp	x0, 0 <main>
- 180:	91000000 	add	x0, x0, #0x0
- 184:	1e200960 	fmul	s0, s11, s0
- 188:	1e22c000 	fcvt	d0, s0
- 18c:	94000000 	bl	0 <printf>
- 190:	5292d009 	mov	w9, #0x9680                	// #38528
- 194:	72a96309 	movk	w9, #0x4b18, lsl #16
- 198:	aa1f03e8 	mov	x8, xzr
- 19c:	4e040d20 	dup	v0.4s, w9
- 1a0:	8b0802a9 	add	x9, x21, x8
- 1a4:	ad400921 	ldp	q1, q2, [x9]
- 1a8:	91008108 	add	x8, x8, #0x20
- 1ac:	eb0802ff 	cmp	x23, x8
- 1b0:	6e20dc21 	fmul	v1.4s, v1.4s, v0.4s
- 1b4:	6e20dc42 	fmul	v2.4s, v2.4s, v0.4s
- 1b8:	ad000921 	stp	q1, q2, [x9]
- 1bc:	54ffff21 	b.ne	1a0 <main+0x1a0>
- 1c0:	aa1303e0 	mov	x0, x19
- 1c4:	94000000 	bl	0 <_ZdaPv>
- 1c8:	aa1403e0 	mov	x0, x20
- 1cc:	94000000 	bl	0 <_ZdaPv>
- 1d0:	aa1503e0 	mov	x0, x21
- 1d4:	94000000 	bl	0 <_ZdaPv>
- 1d8:	a9467bfd 	ldp	x29, x30, [sp,#96]
- 1dc:	a9454ff4 	ldp	x20, x19, [sp,#80]
- 1e0:	a94457f6 	ldp	x22, x21, [sp,#64]
- 1e4:	a9435ff8 	ldp	x24, x23, [sp,#48]
- 1e8:	f94013f9 	ldr	x25, [sp,#32]
- 1ec:	6d4123e9 	ldp	d9, d8, [sp,#16]
- 1f0:	2a1f03e0 	mov	w0, wzr
- 1f4:	6cc72beb 	ldp	d11, d10, [sp],#112
- 1f8:	d65f03c0 	ret
+   0:	d10243ff 	sub	sp, sp, #0x90
+   4:	6d0323e9 	stp	d9, d8, [sp,#48]
+   8:	a90467fa 	stp	x26, x25, [sp,#64]
+   c:	a9055ff8 	stp	x24, x23, [sp,#80]
+  10:	a90657f6 	stp	x22, x21, [sp,#96]
+  14:	a9074ff4 	stp	x20, x19, [sp,#112]
+  18:	a9087bfd 	stp	x29, x30, [sp,#128]
+  1c:	910203fd 	add	x29, sp, #0x80
+  20:	d53bd057 	mrs	x23, tpidr_el0
+  24:	f94016e8 	ldr	x8, [x23,#40]
+  28:	321b0be9 	orr	w9, wzr, #0xe0
+  2c:	f90017e8 	str	x8, [sp,#40]
+  30:	f90013e9 	str	x9, [sp,#32]
+  34:	94000000 	bl	0 <gettid>
+  38:	2a0003e1 	mov	w1, w0
+  3c:	52800f40 	mov	w0, #0x7a                  	// #122
+  40:	321d03e2 	orr	w2, wzr, #0x8
+  44:	910083e3 	add	x3, sp, #0x20
+  48:	94000000 	bl	0 <syscall>
+  4c:	aa0003e8 	mov	x8, x0
+  50:	34000108 	cbz	w8, 70 <main+0x70>
+  54:	90000009 	adrp	x9, 0 <__sF>
+  58:	f9400129 	ldr	x9, [x9]
+  5c:	90000001 	adrp	x1, 0 <main>
+  60:	91000021 	add	x1, x1, #0x0
+  64:	2a0803e2 	mov	w2, w8
+  68:	9104c120 	add	x0, x9, #0x130
+  6c:	94000000 	bl	0 <fprintf>
+  70:	528b4000 	mov	w0, #0x5a00                	// #23040
+  74:	528b4018 	mov	w24, #0x5a00                	// #23040
+  78:	72a04c40 	movk	w0, #0x262, lsl #16
+  7c:	72a04c58 	movk	w24, #0x262, lsl #16
+  80:	94000000 	bl	0 <_Znam>
+  84:	aa0003f3 	mov	x19, x0
+  88:	528b4000 	mov	w0, #0x5a00                	// #23040
+  8c:	72a04c40 	movk	w0, #0x262, lsl #16
+  90:	94000000 	bl	0 <_Znam>
+  94:	aa0003f4 	mov	x20, x0
+  98:	528b4000 	mov	w0, #0x5a00                	// #23040
+  9c:	72a04c40 	movk	w0, #0x262, lsl #16
+  a0:	94000000 	bl	0 <_Znam>
+  a4:	aa0003f5 	mov	x21, x0
+  a8:	94000000 	bl	0 <rand>
+  ac:	1103fc08 	add	w8, w0, #0xff
+  b0:	7100001f 	cmp	w0, #0x0
+  b4:	1a80b108 	csel	w8, w8, w0, lt
+  b8:	12185d08 	and	w8, w8, #0xffffff00
+  bc:	4b080016 	sub	w22, w0, w8
+  c0:	94000000 	bl	0 <rand>
+  c4:	1103fc08 	add	w8, w0, #0xff
+  c8:	7100001f 	cmp	w0, #0x0
+  cc:	1a80b108 	csel	w8, w8, w0, lt
+  d0:	12185d08 	and	w8, w8, #0xffffff00
+  d4:	aa1f03f9 	mov	x25, xzr
+  d8:	4b08001a 	sub	w26, w0, w8
+  dc:	94000000 	bl	0 <rand>
+  e0:	1103fc08 	add	w8, w0, #0xff
+  e4:	7100001f 	cmp	w0, #0x0
+  e8:	1a80b108 	csel	w8, w8, w0, lt
+  ec:	12185d08 	and	w8, w8, #0xffffff00
+  f0:	4b080008 	sub	w8, w0, w8
+  f4:	1e220100 	scvtf	s0, w8
+  f8:	bc396a60 	str	s0, [x19,x25]
+  fc:	94000000 	bl	0 <rand>
+ 100:	1103fc08 	add	w8, w0, #0xff
+ 104:	7100001f 	cmp	w0, #0x0
+ 108:	1a80b108 	csel	w8, w8, w0, lt
+ 10c:	12185d08 	and	w8, w8, #0xffffff00
+ 110:	4b080008 	sub	w8, w0, w8
+ 114:	1e220100 	scvtf	s0, w8
+ 118:	bc396a80 	str	s0, [x20,x25]
+ 11c:	91001339 	add	x25, x25, #0x4
+ 120:	eb19031f 	cmp	x24, x25
+ 124:	54fffdc1 	b.ne	dc <main+0xdc>
+ 128:	90000008 	adrp	x8, 0 <main>
+ 12c:	4e040ec0 	dup	v0.4s, w22
+ 130:	fd400108 	ldr	d8, [x8]
+ 134:	4e21d800 	scvtf	v0.4s, v0.4s
+ 138:	3d8007e0 	str	q0, [sp,#16]
+ 13c:	4e040f40 	dup	v0.4s, w26
+ 140:	2a1f03f9 	mov	w25, wzr
+ 144:	4e21d800 	scvtf	v0.4s, v0.4s
+ 148:	1e2703e9 	fmov	s9, wzr
+ 14c:	3d8003e0 	str	q0, [sp]
+ 150:	5284b43a 	mov	w26, #0x25a1                	// #9633
+ 154:	72a004da 	movk	w26, #0x26, lsl #16
+ 158:	94000000 	bl	0 <_ZNSt6chrono3_V212system_clock3nowEv>
+ 15c:	ad400be3 	ldp	q3, q2, [sp]
+ 160:	aa0003f6 	mov	x22, x0
+ 164:	aa1f03e8 	mov	x8, xzr
+ 168:	3ce86a60 	ldr	q0, [x19,x8]
+ 16c:	3ce86a81 	ldr	q1, [x20,x8]
+ 170:	5100075a 	sub	w26, w26, #0x1
+ 174:	7100075f 	cmp	w26, #0x1
+ 178:	6e22dc00 	fmul	v0.4s, v0.4s, v2.4s
+ 17c:	4e23cc20 	fmla	v0.4s, v1.4s, v3.4s
+ 180:	3ca86aa0 	str	q0, [x21,x8]
+ 184:	91004108 	add	x8, x8, #0x10
+ 188:	54ffff0c 	b.gt	168 <main+0x168>
+ 18c:	94000000 	bl	0 <_ZNSt6chrono3_V212system_clock3nowEv>
+ 190:	cb160008 	sub	x8, x0, x22
+ 194:	1e22c120 	fcvt	d0, s9
+ 198:	9e620101 	scvtf	d1, x8
+ 19c:	11000739 	add	w25, w25, #0x1
+ 1a0:	1f480020 	fmadd	d0, d1, d8, d0
+ 1a4:	710fa33f 	cmp	w25, #0x3e8
+ 1a8:	1e624009 	fcvt	s9, d0
+ 1ac:	54fffd21 	b.ne	150 <main+0x150>
+ 1b0:	90000008 	adrp	x8, 0 <main>
+ 1b4:	bd400100 	ldr	s0, [x8]
+ 1b8:	90000000 	adrp	x0, 0 <main>
+ 1bc:	91000000 	add	x0, x0, #0x0
+ 1c0:	1e200920 	fmul	s0, s9, s0
+ 1c4:	1e22c000 	fcvt	d0, s0
+ 1c8:	94000000 	bl	0 <printf>
+ 1cc:	5292d009 	mov	w9, #0x9680                	// #38528
+ 1d0:	72a96309 	movk	w9, #0x4b18, lsl #16
+ 1d4:	aa1f03e8 	mov	x8, xzr
+ 1d8:	4e040d20 	dup	v0.4s, w9
+ 1dc:	8b0802a9 	add	x9, x21, x8
+ 1e0:	ad400921 	ldp	q1, q2, [x9]
+ 1e4:	91008108 	add	x8, x8, #0x20
+ 1e8:	eb08031f 	cmp	x24, x8
+ 1ec:	6e20dc21 	fmul	v1.4s, v1.4s, v0.4s
+ 1f0:	6e20dc42 	fmul	v2.4s, v2.4s, v0.4s
+ 1f4:	ad000921 	stp	q1, q2, [x9]
+ 1f8:	54ffff21 	b.ne	1dc <main+0x1dc>
+ 1fc:	aa1303e0 	mov	x0, x19
+ 200:	94000000 	bl	0 <_ZdaPv>
+ 204:	aa1403e0 	mov	x0, x20
+ 208:	94000000 	bl	0 <_ZdaPv>
+ 20c:	aa1503e0 	mov	x0, x21
+ 210:	94000000 	bl	0 <_ZdaPv>
+ 214:	f94016e8 	ldr	x8, [x23,#40]
+ 218:	f94017e9 	ldr	x9, [sp,#40]
+ 21c:	eb09011f 	cmp	x8, x9
+ 220:	54000141 	b.ne	248 <main+0x248>
+ 224:	a9487bfd 	ldp	x29, x30, [sp,#128]
+ 228:	a9474ff4 	ldp	x20, x19, [sp,#112]
+ 22c:	a94657f6 	ldp	x22, x21, [sp,#96]
+ 230:	a9455ff8 	ldp	x24, x23, [sp,#80]
+ 234:	a94467fa 	ldp	x26, x25, [sp,#64]
+ 238:	6d4323e9 	ldp	d9, d8, [sp,#48]
+ 23c:	2a1f03e0 	mov	w0, wzr
+ 240:	910243ff 	add	sp, sp, #0x90
+ 244:	d65f03c0 	ret
+ 248:	94000000 	bl	0 <__stack_chk_fail>
 
 Disassembly of section .text.startup:
 

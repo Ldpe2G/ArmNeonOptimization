@@ -4,9 +4,35 @@
 #include <cmath>
 #include <chrono>
 
+#ifdef __ANDROID__
+#include <sys/syscall.h>
+#include <unistd.h>
+#include <stdint.h>
+#endif
+
 #if defined(__ARM_NEON)
 #include <arm_neon.h>
 #endif // __ARM_NEON
+
+static int set_sched_affinity(size_t thread_affinity_mask)
+{
+#ifdef __GLIBC__
+    pid_t pid = syscall(SYS_gettid);
+#else
+#ifdef PI3
+    pid_t pid = getpid();
+#else
+    pid_t pid = gettid();
+#endif
+#endif
+    int syscallret = syscall(__NR_sched_setaffinity, pid, sizeof(thread_affinity_mask), &thread_affinity_mask);
+    if (syscallret)
+    {
+        fprintf(stderr, "syscall error %d\n", syscallret);
+        return -1;
+    }
+    return 0;
+} 
 
 bool arrWeightedAvg(const float *arr1,
                     const float arr1Weight,
@@ -201,6 +227,14 @@ bool arrWeightedAvgAssembly(const float *arr1,
 
 int main(int argc, char *argv[]) {
 
+    size_t mask = 0;
+    for (int i = 0; i < 8; ++i) {
+      if (i >= 5) {
+        mask |= (1 << i);
+      }
+    }
+    int ret = set_sched_affinity(mask);
+
     int arrLen = 10000000;
     float *arr1 = new float[arrLen];
     float *arr2 = new float[arrLen];
@@ -218,8 +252,8 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < loop; ++i) {
       auto start = std::chrono::high_resolution_clock::now();
       // arrWeightedAvg(arr1, weight1, arr2, weight2, arrLen, resultArr);
-      // arrWeightedAvgIntrinsic(arr1, weight1, arr2, weight2, arrLen, resultArr);
-      arrWeightedAvgAssembly(arr1, weight1, arr2, weight2, arrLen, resultArr);
+      arrWeightedAvgIntrinsic(arr1, weight1, arr2, weight2, arrLen, resultArr);
+      // arrWeightedAvgAssembly(arr1, weight1, arr2, weight2, arrLen, resultArr);
       auto stop = std::chrono::high_resolution_clock::now();
       duration += std::chrono::duration<double, std::milli>(stop - start).count();;
     }
