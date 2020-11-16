@@ -162,17 +162,12 @@ bool arrWeightedAvgAssembly(const float *arr1,
     
     "bgt        0b                            \n"
 
-    :[arr1Ptr]        "=r"(arr1Ptr),
-     [arr2Ptr]        "=r"(arr2Ptr),
-     [resultArrPtr]   "=r"(resultArrPtr),
-     [neonLen]        "=r"(neonLen)
-    :[arr1Ptr]        "0"(arr1Ptr),
-     [arr2Ptr]        "1"(arr2Ptr),
-     [resultArrPtr]   "2"(resultArrPtr),
-     [neonLen]        "3"(neonLen),
-     [arr1Weight]     "r"(arr1Weight),
-     [arr2Weight]     "r"(arr2Weight),
-     [neonLen]        "r"(neonLen)
+    :[arr1Ptr]        "+r"(arr1Ptr),
+     [arr2Ptr]        "+r"(arr2Ptr),
+     [resultArrPtr]   "+r"(resultArrPtr),
+     [neonLen]        "+r"(neonLen)
+    :[arr1Weight]     "r"(arr1Weight),
+     [arr2Weight]     "r"(arr2Weight)
     :"cc", "memory", "x0", "x1", "v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7"
   );
 #else   // armv7
@@ -198,17 +193,12 @@ bool arrWeightedAvgAssembly(const float *arr1,
     "vst1.f32   {d12-d13}, [%[resultArrPtr]]! \n"
     
     "bgt        0b                  \n"
-    :[arr1Ptr]        "=r"(arr1Ptr),
-     [arr2Ptr]        "=r"(arr2Ptr),
-     [resultArrPtr]   "=r"(resultArrPtr),
-     [neonLen]        "=r"(neonLen)
-    :[arr1Ptr]        "0"(arr1Ptr),
-     [arr2Ptr]        "1"(arr2Ptr),
-     [resultArrPtr]   "2"(resultArrPtr),
-     [neonLen]        "3"(neonLen),
-     [arr1Weight]     "r"(arr1Weight),
-     [arr2Weight]     "r"(arr2Weight),
-     [neonLen]        "r"(neonLen)
+    :[arr1Ptr]        "+r"(arr1Ptr),
+     [arr2Ptr]        "+r"(arr2Ptr),
+     [resultArrPtr]   "+r"(resultArrPtr),
+     [neonLen]        "+r"(neonLen)
+    :[arr1Weight]     "r"(arr1Weight),
+     [arr2Weight]     "r"(arr2Weight)
     :"cc", "memory", "q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7"
   );
 #endif
