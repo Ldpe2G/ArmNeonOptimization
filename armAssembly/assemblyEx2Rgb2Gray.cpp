@@ -148,12 +148,10 @@ void rgb2grayAssembly(const unsigned char *rgbImage,
 
         "bgt        0b                              \n"
 
-        :[src]        "=r"(src),
-         [dst]        "=r"(dst),
-         [neonLen]    "=r"(neonLen)
-        :[src]        "0"(src),
-         [dst]        "1"(dst),
-         [neonLen]    "2"(neonLen)
+        :[src]        "+r"(src),
+         [dst]        "+r"(dst),
+         [neonLen]    "+r"(neonLen)
+        :
         :"cc", "memory", "v0", "v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "v9", "v10", "v11", "v12", "v13"
     );
 #else   // armv7
@@ -202,12 +200,10 @@ void rgb2grayAssembly(const unsigned char *rgbImage,
 
         "bgt        0b                      \n"
 
-        :[src]          "=r"(src),
-         [dst]          "=r"(dst),
-         [neonLen]      "=r"(neonLen)
-        :[src]          "0"(src),
-         [dst]          "1"(dst),
-         [neonLen]      "2"(neonLen)
+        :[src]        "+r"(src),
+         [dst]        "+r"(dst),
+         [neonLen]    "+r"(neonLen)
+        :
         :"cc", "memory", "q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10"
     );
 #endif
