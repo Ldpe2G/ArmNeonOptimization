@@ -235,14 +235,16 @@ int main(int argc, char *argv[]) {
 
     size_t mask = 0;
     for (int i = 0; i < 8; ++i) {
-      if (i >= 7) {
+      if (i >= 5) {
         mask |= (1 << i);
       }
     }
     int ret = set_sched_affinity(mask);
 
     std::string input_path  = std::string(argv[1]);
-    std::string output_name = std::string(argv[2]);
+    std::string output_nameC = "resultC-" + std::string(argv[2]);
+    std::string output_nameNeonIntrinsics = "resultNeonIntrinsics-" + std::string(argv[2]);
+    std::string output_nameAssembly = "resultAssembly-" + std::string(argv[2]);
 
     int width, height, channel;
     unsigned char *inputImage = stbi_load(input_path.c_str(), &width, &height, &channel, 0);
@@ -251,24 +253,66 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    unsigned char *outGray = new unsigned char[height * width];
+    int arrLen = height * width;
+    unsigned char *outGrayC = new unsigned char[arrLen];
+    unsigned char *outGrayNeonIntrinsics = new unsigned char[arrLen];
+    unsigned char *outGrayAssembly = new unsigned char[arrLen];
 
-    float duration = 0.0f;
     int loop = 1000;
+
+    float durationC = 0.0f;
     for (int i = 0; i < loop; ++i) {
         auto start = std::chrono::high_resolution_clock::now();
-        rgb2grayFloat(inputImage, height, width, outGray);
-        // rgb2gray(inputImage, height, width, outGray);
-        // rgb2grayAssembly(inputImage, height, width, outGray);
+        rgb2grayFloat(inputImage, height, width, outGrayC);
         auto stop = std::chrono::high_resolution_clock::now();
-        duration += std::chrono::duration<double, std::milli>(stop - start).count();
+        durationC += std::chrono::duration<double, std::milli>(stop - start).count();
     }
-    printf("iamge size (%d, %d) rgb2gray time: %f ms\n", height, width, duration / loop);
+    float avgDurationC = durationC / loop;
     
+    float durationNeonIntrinsics = 0.0f;
+    for (int i = 0; i < loop; ++i) {
+        auto start = std::chrono::high_resolution_clock::now();
+        rgb2gray(inputImage, height, width, outGrayNeonIntrinsics);
+        auto stop = std::chrono::high_resolution_clock::now();
+        durationNeonIntrinsics += std::chrono::duration<double, std::milli>(stop - start).count();
+    }
+    float avgDurationNeonIntrinsics = durationNeonIntrinsics / loop;
 
-    stbi_write_jpg(output_name.c_str(), width, height, 1, outGray, 100);
+    float durationAssembly = 0.0f;
+    for (int i = 0; i < loop; ++i) {
+        auto start = std::chrono::high_resolution_clock::now();
+        rgb2grayAssembly(inputImage, height, width, outGrayAssembly);
+        auto stop = std::chrono::high_resolution_clock::now();
+        durationAssembly += std::chrono::duration<double, std::milli>(stop - start).count();
+    }
+    float avgDurationAssembly = durationAssembly / loop;
+
+    // check result
+    int failCount = 0;
+    for (int i=0; i<arrLen; i++) {
+        if (outGrayC[i]!=outGrayNeonIntrinsics[i] || outGrayC[i]!=outGrayAssembly[i]) {
+            failCount ++;
+        }
+    }
+
+    if (failCount>0) {
+        printf("Error! Results mismatch, fail count = %d\n", failCount);
+    } else {
+        printf("Correct! Results mattch\n");
+    }
+    printf("image size (%d, %d) rgb2gray time:\n", height, width);
+    printf("    plain C        : %f ms\n", avgDurationC);
+    printf("    neon intrinsics: %f ms\n", avgDurationNeonIntrinsics);
+    printf("    assembly       : %f ms\n", avgDurationAssembly);
+
+    stbi_write_jpg(output_nameC.c_str(), width, height, 1, outGrayC, 100);
+    stbi_write_jpg(output_nameNeonIntrinsics.c_str(), width, height, 1, outGrayNeonIntrinsics, 100);
+    stbi_write_jpg(output_nameAssembly.c_str(), width, height, 1, outGrayAssembly, 100);
 
     stbi_image_free(inputImage);
-    delete[] outGray;
+    delete[] outGrayC;
+    delete[] outGrayNeonIntrinsics;
+    delete[] outGrayAssembly;
+
     return 0;
 }
