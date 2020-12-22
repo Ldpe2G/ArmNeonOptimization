@@ -13,6 +13,9 @@ project(getCPUid)
 
 set(CMAKE_CXX_STANDARD 11)
 
+# generate compile_commands.json for function jumps
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 #include_directories(${PROJECT_SOURCE_DIR}/src)
 
 # Only usefull in gcc

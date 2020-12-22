@@ -228,7 +228,9 @@ int main(int argc, char *argv[]) {
     int arrLen = 10000000;
     float *arr1 = new float[arrLen];
     float *arr2 = new float[arrLen];
-    float *resultArr = new float[arrLen];
+    float *resultArrC = new float[arrLen];
+    float *resultArrNeonIntrinsics = new float[arrLen];
+    float *resultArrAssembly = new float[arrLen];
 
     float weight1 = rand() % 256;
     float weight2 = rand() % 256;
@@ -237,25 +239,58 @@ int main(int argc, char *argv[]) {
       arr2[i] = rand() % 256;
     }
 
-    float duration = 0.0f;
     int loop = 1000;
+
+    float durationC = 0.0f;
     for (int i = 0; i < loop; ++i) {
       auto start = std::chrono::high_resolution_clock::now();
-      // arrWeightedAvg(arr1, weight1, arr2, weight2, arrLen, resultArr);
-      arrWeightedAvgIntrinsic(arr1, weight1, arr2, weight2, arrLen, resultArr);
-      // arrWeightedAvgAssembly(arr1, weight1, arr2, weight2, arrLen, resultArr);
+      arrWeightedAvg(arr1, weight1, arr2, weight2, arrLen, resultArrC);
       auto stop = std::chrono::high_resolution_clock::now();
-      duration += std::chrono::duration<double, std::milli>(stop - start).count();;
+      durationC += std::chrono::duration<double, std::milli>(stop - start).count();;
     }
-    printf("arr weighted sum time: %f ms\n", duration / loop);
+    float avgDurationC = durationC / loop;
 
-    for (int i = 0; i < arrLen; ++i) {
-      resultArr[i] = resultArr[i] * arrLen;
+    float durationNeonIntrinsics = 0.0f;
+    for (int i = 0; i < loop; ++i) {
+      auto start = std::chrono::high_resolution_clock::now();
+      arrWeightedAvgIntrinsic(arr1, weight1, arr2, weight2, arrLen, resultArrNeonIntrinsics);
+      auto stop = std::chrono::high_resolution_clock::now();
+      durationNeonIntrinsics += std::chrono::duration<double, std::milli>(stop - start).count();;
     }
+    float avgDurationNeonIntrinsics = durationNeonIntrinsics / loop;
+
+    float durationAssembly = 0.0f;
+    for (int i = 0; i < loop; ++i) {
+      auto start = std::chrono::high_resolution_clock::now();
+      arrWeightedAvgAssembly(arr1, weight1, arr2, weight2, arrLen, resultArrAssembly);
+      auto stop = std::chrono::high_resolution_clock::now();
+      durationAssembly += std::chrono::duration<double, std::milli>(stop - start).count();;
+    }
+    float avgDurationAssembly = durationAssembly / loop;
+
+    // check result
+    int failCount = 0;
+    for (int i=0; i<arrLen; i++) {
+      if (resultArrC[i]!=resultArrNeonIntrinsics[i] || resultArrC[i]!=resultArrAssembly[i]) {
+        failCount ++;
+      }
+    }
+
+    if (failCount>0) {
+      printf("Error! Results mismatch, fail count = %d\n", failCount);
+    } else {
+      printf("Correct! Results match\n");
+    }
+    printf("arr weighted sum time: \n");
+    printf("    plain C        : %f ms\n", avgDurationC);
+    printf("    neon intrinsics: %f ms\n", avgDurationNeonIntrinsics);
+    printf("    assembly       : %f ms\n", avgDurationAssembly);
 
     delete[] arr1;
     delete[] arr2;
-    delete[] resultArr;
+    delete[] resultArrC;
+    delete[] resultArrNeonIntrinsics;
+    delete[] resultArrAssembly;
 
     return 0;
 }
